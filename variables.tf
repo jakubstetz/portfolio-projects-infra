@@ -27,6 +27,18 @@ variable "ec2_allowed_cidr_blocks" {
   default     = ["0.0.0.0/0"] # Restrict this in production!
 }
 
+variable "root_volume_size" {
+  description = "Size of the root volume in GB"
+  type        = number
+  default     = 8
+}
+
+variable "root_volume_type" {
+  description = "Type of the root volume (e.g., gp3, gp2, io1)"
+  type        = string
+  default     = "gp3"
+}
+
 # RDS Configuration
 variable "db_instance_class" {
   description = "RDS instance class"
@@ -62,17 +74,4 @@ variable "db_backup_retention_days" {
   description = "Number of days to retain database backups"
   type        = number
   default     = 7
-}
-
-# EC2 Configuration
-variable "root_volume_size" {
-  description = "Size of the root volume in GB"
-  type        = number
-  default     = 8
-}
-
-variable "root_volume_type" {
-  description = "Type of the root volume (e.g., gp3, gp2, io1)"
-  type        = string
-  default     = "gp3"
 }
