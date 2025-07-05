@@ -50,7 +50,7 @@ curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/ma
   -o projects.yaml
 
 yq -e '.projects[].services[]' projects.yaml | while read -r service; do
-  repo=$(echo "$service" | yq '.repo')
+  repo=$(echo "$service" | yq -r '.repo')
   echo "Cloning $repo..."
   git clone "$repo"
 done
@@ -63,9 +63,9 @@ curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/ma
   -o nginx_template.conf
 
 yq -e '.projects[].services[]' projects.yaml | while read -r service; do
-  repo=$(echo "$service" | yq '.repo')
-  port=$(echo "$service" | yq '.port')
-  domain=$(echo "$service" | yq '.domain')
+  repo=$(echo "$service" | yq -r '.repo')
+  port=$(echo "$service" | yq -r '.port')
+  domain=$(echo "$service" | yq -r '.domain')
   name=$(basename "$repo" .git)
 
   echo "🔧 Generating NGINX config for $name ($domain)..."
