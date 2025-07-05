@@ -39,26 +39,28 @@ chmod +x /usr/local/bin/yq
 # Move to home directory
 cd /home/ec2-user
 
-# Clone project repos from GitHub
-curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/repos.txt \
-  -o repos.txt
-while read -r repo_url; do
-  if [ -n "$repo_url" ]; then
-    echo "Cloning $repo_url..."
-    git clone "$repo_url"
-  fi
-done < repos.txt
-
-# NGINX reverse proxy setup
-curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/nginx_template.conf \
-  -o nginx_template.conf
-curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/projects.yaml \
-  -o projects.yaml
-
+# Verify that project information is available
 if ! yq -e '.projects[].services[]' projects.yaml > /dev/null; then
   echo "❌ No services found in projects.yaml. Check formatting." >&2
   exit 1
 fi
+
+# Clone project repos from GitHub
+curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/projects.yaml \
+  -o projects.yaml
+
+yq -e '.projects[].services[]' projects.yaml | while read -r service; do
+  repo=$(echo "$service" | yq '.repo')
+  echo "Cloning $repo..."
+  git clone "$repo"
+done
+
+# Set ownership of cloned repositories, to ensure they're not owned by root
+chown -R ec2-user:ec2-user /home/ec2-user
+
+# NGINX reverse proxy setup
+curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/nginx_template.conf \
+  -o nginx_template.conf
 
 yq -e '.projects[].services[]' projects.yaml | while read -r service; do
   repo=$(echo "$service" | yq '.repo')
@@ -77,9 +79,6 @@ systemctl restart nginx
 # Certbot setup information message
 echo ""
 echo "Because first-time use of Certbot requires user interaction, SSL setup with Certbot is not included as a part of this script."
-
-# Set ownership of cloned repositories, to ensure they're not owned by root
-chown -R ec2-user:ec2-user /home/ec2-user
 
 # Completion message
 echo ""
