@@ -14,7 +14,7 @@ done
 
 # System prep
 dnf update -y
-dnf install -y git nginx docker python3-pip
+dnf install -y git nginx docker python3-pip gettext
 
 # Set up Docker
 systemctl start docker
