@@ -31,8 +31,15 @@ echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
 echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/ec2-user/.bashrc
 export PATH=$PATH:/usr/local/go/bin
 
-# Clone project repos from GitHub
+# Install yq
+YQ_VERSION="v4.43.1"
+curl -L "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" -o /usr/local/bin/yq
+chmod +x /usr/local/bin/yq
+
+# Move to home directory
 cd /home/ec2-user
+
+# Clone project repos from GitHub
 curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/repos.txt \
   -o repos.txt
 while read -r repo_url; do
@@ -43,11 +50,27 @@ while read -r repo_url; do
 done < repos.txt
 
 # NGINX reverse proxy setup
-cd portfolio-insights-backend/.infra
-cp nginx_portfolio-insights.conf /etc/nginx/conf.d/portfolio-insights.conf
-cd ../
-cd resume-scanner/.infra
-cp nginx_resume-scanner.conf /etc/nginx/conf.d/resume-scanner.conf
+curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/nginx_template.conf \
+  -o nginx_template.conf
+curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/projects.yaml \
+  -o projects.yaml
+
+if ! yq -e '.projects[].services[]' projects.yaml > /dev/null; then
+  echo "❌ No services found in projects.yaml. Check formatting." >&2
+  exit 1
+fi
+
+yq -e '.projects[].services[]' projects.yaml | while read -r service; do
+  repo=$(echo "$service" | yq '.repo')
+  port=$(echo "$service" | yq '.port')
+  domain=$(echo "$service" | yq '.domain')
+  name=$(basename "$repo" .git)
+
+  echo "🔧 Generating NGINX config for $name ($domain)..."
+  export port domain
+  envsubst < nginx_template.conf > "/etc/nginx/conf.d/${name}.conf"
+done
+
 systemctl enable nginx
 systemctl restart nginx
 
