@@ -31,11 +31,16 @@ echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
 echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/ec2-user/.bashrc
 export PATH=$PATH:/usr/local/go/bin
 
-# Clone backend and microservice from GitHub
+# Clone project repos from GitHub
 cd /home/ec2-user
-git clone https://github.com/jakubstetz/portfolio-insights-backend.git
-git clone https://github.com/jakubstetz/market-service.git
-git clone https://github.com/jakubstetz/resume-scanner.git
+curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/repos.txt \
+  -o repos.txt
+while read -r repo_url; do
+  if [ -n "$repo_url" ]; then
+    echo "Cloning $repo_url..."
+    git clone "$repo_url"
+  fi
+done < repos.txt
 
 # NGINX reverse proxy setup
 cd portfolio-insights-backend/.infra
