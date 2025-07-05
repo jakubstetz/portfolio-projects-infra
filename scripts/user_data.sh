@@ -51,22 +51,16 @@ if ! yq -e '.projects[].services[]' projects.yaml > /dev/null; then
   exit 1
 fi
 
-# Clone project repos from GitHub
+# Clone project repos from GitHub and set up NGINX reverse proxies
 yq -e '.projects[].services[]' projects.yaml | while read -r service; do
-  repo=$(echo "$service" | yq -r '.repo')
-  echo "Cloning $repo..."
-  git clone "$repo"
-done
-
-# Set ownership of cloned repositories, to ensure they're not owned by root
-chown -R ec2-user:ec2-user /home/ec2-user
-
-# NGINX reverse proxy setup
-yq -e '.projects[].services[]' projects.yaml | while read -r service; do
+  # Extract fields from service
   repo=$(echo "$service" | yq -r '.repo')
   port=$(echo "$service" | yq -r '.port')
   domain=$(echo "$service" | yq -r '.domain')
   name=$(basename "$repo" .git)
+
+  echo "🧬 Cloning $repo..."
+  git clone "$repo"
 
   echo "🔧 Generating NGINX config for $name ($domain)..."
   export port domain
@@ -75,6 +69,9 @@ done
 
 systemctl enable nginx
 systemctl restart nginx
+
+# Set ownership of cloned repositories, to ensure they're not owned by root
+chown -R ec2-user:ec2-user /home/ec2-user
 
 # Certbot setup information message
 echo ""
