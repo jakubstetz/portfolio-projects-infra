@@ -25,11 +25,9 @@ usermod -aG docker ec2-user
 GO_VERSION=1.24.4
 cd /usr/local
 curl -LO https://golang.org/dl/go$GO_VERSION.linux-amd64.tar.gz
-rm -rf go
 tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
-echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
-echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/ec2-user/.bashrc
-export PATH=$PATH:/usr/local/go/bin
+echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/go.sh
+chmod +x /etc/profile.d/go.sh
 
 # Install yq
 YQ_VERSION="v4.43.1"
