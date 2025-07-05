@@ -98,6 +98,11 @@ chown -R ec2-user:ec2-user /home/ec2-user
 echo ""
 echo "🔐 SSL setup with Certbot requires manual interaction and is not automated in this script."
 
+# Remove unnecessary utility files used for setup
+echo "🧹 Removing utility files used for setup..."
+rm -f nginx_template.conf
+rm -f go$GO_VERSION.linux-amd64.tar.gz
+
 # Completion message
 echo ""
 echo "✅ EC2 setup complete."
