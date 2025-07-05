@@ -1,3 +1,0 @@
-https://github.com/portfolio-insights/portfolio-insights-backend.git
-https://github.com/portfolio-insights/market-service.git
-https://github.com/jakubstetz/resume-scanner.git

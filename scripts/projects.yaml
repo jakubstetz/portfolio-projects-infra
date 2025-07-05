@@ -1,0 +1,19 @@
+projects:
+  - name: portfolio-insights
+    services:
+      - service: api
+        repo: https://github.com/portfolio-insights/portfolio-insights-backend.git
+        port: 8000
+        domain: api.portfolio-insights.jakubstetz.dev
+
+      - service: market connection microservice
+        repo: https://github.com/portfolio-insights/market-service.git
+        port: 8080
+        domain: api.market-service.jakubstetz.dev
+
+  - name: resume-scanner
+    services:
+      - service: api
+        repo: https://github.com/jakubstetz/resume-scanner.git
+        port: 8001
+        domain: api.resume-scanner.jakubstetz.dev
