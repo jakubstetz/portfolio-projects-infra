@@ -39,6 +39,12 @@ chmod +x /usr/local/bin/yq
 # Move to home directory
 cd /home/ec2-user
 
+# Download utility files needed for setup
+curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/projects.yaml \
+  -o projects.yaml
+curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/nginx_template.conf \
+  -o nginx_template.conf
+
 # Verify that project information is available
 if ! yq -e '.projects[].services[]' projects.yaml > /dev/null; then
   echo "❌ No services found in projects.yaml. Check formatting." >&2
@@ -46,9 +52,6 @@ if ! yq -e '.projects[].services[]' projects.yaml > /dev/null; then
 fi
 
 # Clone project repos from GitHub
-curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/projects.yaml \
-  -o projects.yaml
-
 yq -e '.projects[].services[]' projects.yaml | while read -r service; do
   repo=$(echo "$service" | yq -r '.repo')
   echo "Cloning $repo..."
@@ -59,9 +62,6 @@ done
 chown -R ec2-user:ec2-user /home/ec2-user
 
 # NGINX reverse proxy setup
-curl -L https://raw.githubusercontent.com/jakubstetz/portfolio-projects-infra/main/scripts/nginx_template.conf \
-  -o nginx_template.conf
-
 yq -e '.projects[].services[]' projects.yaml | while read -r service; do
   repo=$(echo "$service" | yq -r '.repo')
   port=$(echo "$service" | yq -r '.port')
