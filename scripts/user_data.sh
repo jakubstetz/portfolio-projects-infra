@@ -21,13 +21,14 @@ echo "✅ Network connection established."
 echo ""
 echo "📦 Installing necessary dnf packages..."
 dnf update -y
-dnf install -y git nginx docker python3-pip gettext
+dnf install -y git nginx docker python3-pip postgresql17 gettext
 
 git --version
 nginx --version
 docker --version
 python3 --version
 pip3 --version
+psql --version
 gettext --version
 
 # Install yq
