@@ -6,7 +6,7 @@ projects:
         port: 8000
         domain: api.portfolio-insights.jakubstetz.dev
 
-      - service: market connection microservice
+      - service: market-connection-microservice
         repo: https://github.com/portfolio-insights/market-service.git
         port: 8080
         domain: api.market-service.jakubstetz.dev
