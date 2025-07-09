@@ -23,12 +23,21 @@ echo "📦 Installing necessary dnf packages..."
 dnf update -y
 dnf install -y git nginx docker python3-pip gettext
 
+git --version
+nginx --version
+docker --version
+python3 --version
+pip3 --version
+gettext --version
+
 # Install yq
 echo ""
 echo "🛠️ Installing yq..."
 YQ_VERSION="v4.43.1"
 curl -L "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64" -o /usr/local/bin/yq
 chmod +x /usr/local/bin/yq
+
+yq --version
 
 # Install Go
 echo ""
@@ -39,6 +48,8 @@ curl -LO https://golang.org/dl/go$GO_VERSION.linux-amd64.tar.gz
 tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
 echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/go.sh
 chmod +x /etc/profile.d/go.sh
+
+go --version
 
 # Set up Docker
 echo ""
