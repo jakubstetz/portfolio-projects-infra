@@ -106,9 +106,13 @@ echo "🌐 Restarting NGINX..."
 systemctl enable nginx
 systemctl restart nginx
 
-# Certbot setup information message
+# Certbot setup information messages
 echo ""
-echo "🔐 SSL setup with Certbot requires manual interaction and is not automated in this script."
+echo "🔐 To enable HTTPS, run the following commands after DNS is configured:"
+
+yq -r '.projects[].services[].domain' projects.yaml | while read -r domain; do
+  echo "  sudo certbot --nginx -d $domain"
+done
 
 # Remove unnecessary utility files used for setup
 echo "🧹 Removing utility files used for setup..."
