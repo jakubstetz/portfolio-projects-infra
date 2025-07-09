@@ -97,6 +97,8 @@ yq -e '.projects[].services[]' projects.yaml | while read -r service; do
   echo ""
 done
 
+nginx -t
+
 echo ""
 echo "🌐 Restarting NGINX..."
 systemctl enable nginx
