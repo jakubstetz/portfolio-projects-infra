@@ -59,8 +59,9 @@ systemctl start docker
 systemctl enable docker
 usermod -aG docker ec2-user
 
-# Move to home directory
+# Move to home directory and set ownership of cloned repositories to ensure they're not owned by root
 cd /home/ec2-user
+chown -R ec2-user:ec2-user /home/ec2-user
 
 # Download utility files needed for setup
 echo ""
@@ -104,9 +105,6 @@ echo ""
 echo "🌐 Restarting NGINX..."
 systemctl enable nginx
 systemctl restart nginx
-
-# Set ownership of cloned repositories, to ensure they're not owned by root
-chown -R ec2-user:ec2-user /home/ec2-user
 
 # Certbot setup information message
 echo ""
