@@ -26,7 +26,7 @@ dnf install -y git nginx docker python3-pip postgresql17 gettext
 git --version
 nginx --version
 docker --version
-python3 --version
+python3 --version # Present by default on Amazon Linux
 pip3 --version
 psql --version
 gettext --version
