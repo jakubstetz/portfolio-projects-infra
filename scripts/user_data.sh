@@ -122,6 +122,4 @@ rm -f go$GO_VERSION.linux-amd64.tar.gz
 # Completion message
 echo ""
 echo "✅ EC2 setup complete."
-echo "Run backend.yaml workflow in GitHub Actions to deploy backend, and then visit https://api.portfolio-insights.jakubstetz.dev/health and https://api.resume-scanner.jakubstetz.dev/health to check system health."
-echo "Run microservice.yaml workflow in GitHub Actions to deploy microservice."
 echo ""
