@@ -90,7 +90,7 @@ yq -e '.projects[].services[]' projects.yaml | while read -r service; do
   echo "🧬 Cloning $repo..."
   git clone "$repo"
 
-  echo "🔧 Generating NGINX config for $name ($domain)..."
+  echo "🛜 Generating NGINX config for $name ($domain)..."
   export port domain
   envsubst < nginx_template.conf > "/etc/nginx/conf.d/${name}.conf"
 
