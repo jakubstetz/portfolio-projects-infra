@@ -99,7 +99,7 @@ yq -e '.projects[].services[]' projects.yaml | while read -r service; do
   echo ""
 done
 
-nginx -t
+nginx -t # Verify valid NGINX configuration
 
 echo ""
 echo "🌐 Restarting NGINX..."
