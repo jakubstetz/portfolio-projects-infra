@@ -6,8 +6,6 @@ resource "aws_instance" "portfolio_insights" {
 
   # Configure root block device
   root_block_device {
-    volume_size = 8
-    volume_type = "gp3"
     encrypted   = true
     
     tags = {
