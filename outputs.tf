@@ -17,3 +17,8 @@ output "rds_endpoint" {
   description = "The RDS instance endpoint"
   value       = aws_db_instance.portfolio_projects_db.endpoint
 }
+
+output "rds_port" {
+  description = "The RDS instance port"
+  value       = aws_db_instance.portfolio_projects_db.port
+}
