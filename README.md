@@ -1,6 +1,6 @@
 # 📦 Infrastructure for Portfolio Project Demos
 
-This repository defines the AWS infrastructure for deploying my portfolio project demos using Terraform. It provisions EC2 instances and RDS databases, along with the roles and security groups needed to facilitate cross-resource communication. This codified infrastructure allows me to launch and tear down project deployments with minimal effort.
+This repository defines the AWS infrastructure for deploying my portfolio project demos using Terraform. It provisions an EC2 instance and RDS databases, along with the roles and security groups needed to facilitate cross-resource communication. This codified infrastructure allows me to launch and tear down project deployments with minimal effort.
 
 ## 🚀 What It Does
 
