@@ -1,20 +1,20 @@
 aws_region     = "us-east-2"
 
 # EC2 Configuration
-instance_type  = "t3.micro"
+instance_type  = "t3.micro" # Free tier eligible
 key_name       = "portfolio-projects"
 ami_id         = "ami-xxxxxxxxxxxxxxxxx"
-root_volume_size = 8
-root_volume_type = "gp3"
+root_volume_size = 30 # Free tier eligible
+root_volume_type = "gp3" # Free tier eligible
 # Replace with your IP address and any other allowed IPs in CIDR notation
 # Example: ["123.45.67.89/32", "192.0.2.0/24"]
 allowed_cidr_blocks = ["0.0.0.0/0"]
 
 # Database Configuration
-db_instance_class = "db.t4g.micro"
+db_instance_class = "db.t4g.micro" # Free tier eligible
 db_name         = "portfolio-insights"
 db_username     = "postgres"
 db_password     = "YOUR_SECURE_PASSWORD_HERE"
-db_storage_gb   = 20
-db_storage_type = "gp3"
-db_backup_retention_days = 7
+db_storage_gb   = 20 # Free tier eligible
+db_storage_type = "gp3" # Free tier eligible
+db_backup_retention_days = 7 # Free tier eligible

@@ -8,7 +8,7 @@ variable "aws_region" {
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
-  default     = "t3.micro"
+  default     = "t3.micro" # Free tier eligible
 }
 
 variable "key_name" {
@@ -30,20 +30,20 @@ variable "allowed_cidr_blocks" {
 variable "root_volume_size" {
   description = "Size of the root volume in GB"
   type        = number
-  default     = 8
+  default     = 30 # Free tier eligible
 }
 
 variable "root_volume_type" {
   description = "Type of the root volume (e.g., gp3, gp2, io1)"
   type        = string
-  default     = "gp3"
+  default     = "gp3" # Free tier eligible
 }
 
 # RDS Configuration
 variable "db_instance_class" {
   description = "RDS instance class"
   type        = string
-  default     = "db.t4g.micro"
+  default     = "db.t4g.micro" # Free tier eligible
 }
 
 variable "db_name" {
@@ -67,17 +67,17 @@ variable "db_password" {
 variable "db_storage_type" {
   description = "Type of the database storage (e.g., gp3, gp2, io1)"
   type        = string
-  default     = "gp3"
+  default     = "gp3" # Free tier eligible
 }
 
 variable "db_storage_gb" {
   description = "Database storage size in GB"
   type        = number
-  default     = 20
+  default     = 20 # Free tier eligible
 }
 
 variable "db_backup_retention_days" {
   description = "Number of days to retain database backups"
   type        = number
-  default     = 7
+  default     = 7 # Free tier eligible
 }
