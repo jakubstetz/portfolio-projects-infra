@@ -42,6 +42,6 @@ resource "aws_db_instance" "portfolio_projects_db" {
   deletion_protection = false # For dev environments
   
   tags = {
-    Name = "portfolio-insights-db"
+    Name = "portfolio-projects"
   }
 }
