@@ -37,6 +37,10 @@ resource "aws_security_group" "ec2_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = merge(local.common_tags, {
+    Name = "ec2-security-group"
+  })
 }
 
 resource "aws_security_group" "rds_sg" {
@@ -57,4 +61,8 @@ resource "aws_security_group" "rds_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = merge(local.common_tags, {
+    Name = "rds-security-group"
+  })
 }

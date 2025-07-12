@@ -11,9 +11,9 @@ resource "aws_db_subnet_group" "default" {
   name       = "default-subnet-group"
   subnet_ids = data.aws_subnets.default.ids
 
-  tags = {
+  tags = merge(local.common_tags, {
     Name = "Default RDS Subnet Group"
-  }
+  })
 }
 
 resource "aws_db_instance" "portfolio_projects_db" {
@@ -41,7 +41,7 @@ resource "aws_db_instance" "portfolio_projects_db" {
   skip_final_snapshot = true  # For dev environments
   deletion_protection = false # For dev environments
   
-  tags = {
-    Name = "portfolio-projects"
-  }
+  tags = merge(local.common_tags, {
+    Name = "portfolio-projects-db"
+  })
 }

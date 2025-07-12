@@ -10,9 +10,9 @@ resource "aws_instance" "portfolio_projects" {
     volume_type = var.root_volume_type
     encrypted   = true
     
-    tags = {
+    tags = merge(local.common_tags, {
       Name = "portfolio-projects-root-volume"
-    }
+    })
   }
 
   user_data = file("scripts/user_data.sh")
@@ -20,4 +20,8 @@ resource "aws_instance" "portfolio_projects" {
   # Recreate the EC2 instance if the user_data script changes,
   # since user_data only runs on first boot and can't be updated in-place
   user_data_replace_on_change = true
+
+  tags = merge(local.common_tags, {
+    Name = "portfolio-projects-ec2"
+  })
 }
