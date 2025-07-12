@@ -9,7 +9,7 @@ resource "aws_instance" "portfolio_insights" {
     encrypted   = true
     
     tags = {
-      Name = "portfolio-insights-root-volume"
+      Name = "portfolio-projects-root-volume"
     }
   }
 
