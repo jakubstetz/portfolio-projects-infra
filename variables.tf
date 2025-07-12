@@ -21,7 +21,7 @@ variable "ami_id" {
   type        = string
 }
 
-variable "ec2_allowed_cidr_blocks" {
+variable "allowed_cidr_blocks" {
   description = "List of CIDR blocks allowed to access the EC2 instance"
   type        = list(string)
   default     = ["0.0.0.0/0"] # Restrict this in production!
