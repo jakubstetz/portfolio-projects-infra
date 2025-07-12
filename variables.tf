@@ -64,6 +64,12 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "db_storage_type" {
+  description = "Type of the database storage (e.g., gp3, gp2, io1)"
+  type        = string
+  default     = "gp3"
+}
+
 variable "db_storage_gb" {
   description = "Database storage size in GB"
   type        = number

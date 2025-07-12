@@ -12,3 +12,8 @@ output "ec2_private_ip" {
   description = "The private IP address of the EC2 instance"
   value       = aws_instance.portfolio_insights.private_ip
 }
+
+output "rds_endpoint" {
+  description = "The RDS instance endpoint"
+  value       = aws_db_instance.portfolio_db.endpoint
+}

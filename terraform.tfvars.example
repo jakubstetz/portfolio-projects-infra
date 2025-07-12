@@ -16,4 +16,5 @@ db_name         = "portfolio-insights"
 db_username     = "postgres"
 db_password     = "YOUR_SECURE_PASSWORD_HERE"
 db_storage_gb   = 20
+db_storage_type = "gp3"
 db_backup_retention_days = 7
